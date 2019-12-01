@@ -28,6 +28,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import java.net.InetAddress;
 import javax.swing.*;
+import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -50,6 +51,7 @@ public class Student_Register extends javax.swing.JFrame {
         ChoosingASection();
         DataAdminAccountFrameNoteTaking();
         CurrentDate();
+        selectingFromCalendar();
 
         this.setLocationRelativeTo(null);
     }
@@ -175,6 +177,8 @@ public class Student_Register extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         statusFinderComboBox = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        chooseFromCalendarBox = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         readOnlyCheckBox = new javax.swing.JCheckBoxMenuItem();
@@ -190,7 +194,6 @@ public class Student_Register extends javax.swing.JFrame {
         defaultViewMenuItem = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -626,10 +629,20 @@ public class Student_Register extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Status");
 
-        statusFinderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        statusFinderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status", "Present", "Late", "Excused", "Absent" }));
         statusFinderComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statusFinderComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Calendar");
+
+        chooseFromCalendarBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select from calendar" }));
+        chooseFromCalendarBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseFromCalendarBoxActionPerformed(evt);
             }
         });
 
@@ -681,7 +694,6 @@ public class Student_Register extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4))
                             .addComponent(jLabel1)
-                            .addComponent(sectionsLabel)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(numberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -692,11 +704,15 @@ public class Student_Register extends javax.swing.JFrame {
                                     .addComponent(SectionField, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(55, 55, 55)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(sectionsLabel)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(41, 41, 41)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ChooseASectionBox, 0, 162, Short.MAX_VALUE)
-                                    .addComponent(statusFinderComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(ChooseASectionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(statusFinderComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(chooseFromCalendarBox, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -785,6 +801,10 @@ public class Student_Register extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(statusFinderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(chooseFromCalendarBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -920,9 +940,6 @@ public class Student_Register extends javax.swing.JFrame {
         jMenuItem13.setToolTipText("Helps you access Attendance++ with more ease but with reduced functions");
         jMenu3.add(jMenuItem13);
 
-        jMenuItem15.setText("Attendace Highlights");
-        jMenu3.add(jMenuItem15);
-
         jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Tools");
@@ -939,6 +956,11 @@ public class Student_Register extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("Search...");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuItem7.setText("Charts, graphs (Pie charts, bar graphs, etc.)");
@@ -1078,7 +1100,7 @@ public class Student_Register extends javax.swing.JFrame {
         char cletteronly = evt.getKeyChar();
         if (Character.isAlphabetic(cletteronly) || Character.isWhitespace(cletteronly) || Character.isISOControl(cletteronly)) {
             lname.setEditable(true);
-
+            
         } else {
             lname.setEditable(false);
         }
@@ -1099,7 +1121,11 @@ public class Student_Register extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
+        /* November 29, 2019, The following codes don't work as it is expected to be. Notes: *No syntax errors. 
+        if (ChooseASectionBox.getSelectedItem().equals("Select a Section")) {
+                Data();
+            }
+        */
     }//GEN-LAST:event_ChooseASectionBoxActionPerformed
 
     private void StatusBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_StatusBoxItemStateChanged
@@ -1357,7 +1383,7 @@ public class Student_Register extends javax.swing.JFrame {
             int i = myTB.getSelectedRow();
 
             TableModel model = myTB.getModel();
-
+            
             // Display Slected Row In JTextextFields
             try {
                 No_txt.setText(model.getValueAt(i, 0).toString()); //Must start at 0 for first column
@@ -1409,6 +1435,11 @@ public class Student_Register extends javax.swing.JFrame {
 
     private void helpMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpMenuActionPerformed
         // TODO add your handling code here:
+        try {
+            new ListOfHelp().setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, printStackTrace(e));
+        }
     }//GEN-LAST:event_helpMenuActionPerformed
 
     private void helpMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_helpMenuMouseClicked
@@ -1682,6 +1713,19 @@ public class Student_Register extends javax.swing.JFrame {
 
     private void statusFinderComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusFinderComboBoxActionPerformed
         // TODO add your handling code here:
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String findstatus = "SELECT * FROM database_rec WHERE Status = " + "'" + statusFinderComboBox.getSelectedItem().toString() + "'" + "AND" + " Section = " + "'" + ChooseASectionBox.getSelectedItem().toString() + "'";
+            pst = con.prepareStatement(findstatus);
+            
+            rs = pst.executeQuery(findstatus);
+            
+            myTB.setModel(DbUtils.resultSetToTableModel(rs));
+            JOptionPane.showMessageDialog(null, "Found!");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_statusFinderComboBoxActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1783,10 +1827,29 @@ public class Student_Register extends javax.swing.JFrame {
         ClearTextFields();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        String searchFunctionality = JOptionPane.showInputDialog(null, "Search");
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void chooseFromCalendarBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFromCalendarBoxActionPerformed
+        // TODO add your handling code here:
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String findFromCalendar = "SELECT * FROM database_rec WHERE Time = " + "'" + chooseFromCalendarBox.getSelectedItem() + "'";
+            pst = con.prepareStatement(findFromCalendar);
+            rs = pst.executeQuery(findFromCalendar);
+            myTB.setModel(DbUtils.resultSetToTableModel(rs));
+            JOptionPane.showMessageDialog(null, "Found!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_chooseFromCalendarBoxActionPerformed
+
     public void Data() {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-            String sql = "SELECT * FROM `database_rec`"; //Select a table
+            String sql = "SELECT * FROM database_rec"; //Select a table
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery(sql);
             myTB.setModel(DbUtils.resultSetToTableModel(rs));
@@ -1876,9 +1939,24 @@ public class Student_Register extends javax.swing.JFrame {
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery(sql);
             tableForNoteRecordsStudentRegister.setModel(DbUtils.resultSetToTableModel(rs));
-
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    
+    public void selectingFromCalendar()  {
+        try {
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+        String findCalendarSelect = "SELECT Time FROM database_rec";
+        pst = con.prepareStatement(findCalendarSelect);
+        rs = pst.executeQuery(findCalendarSelect);
+        while (rs.next()) {
+                String time = rs.getString("Time");
+                chooseFromCalendarBox.addItem(time);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
@@ -1928,6 +2006,7 @@ public class Student_Register extends javax.swing.JFrame {
     private javax.swing.JLabel USNLabel;
     private javax.swing.JTextField USN_txt;
     private javax.swing.JButton addContentsInNoteStudentRegister;
+    private javax.swing.JComboBox<String> chooseFromCalendarBox;
     private javax.swing.JMenuItem dayViewMenuItem;
     private javax.swing.JMenuItem defaultViewMenuItem;
     private javax.swing.JButton deleteARecordInmarkedRecordsTableLists;
@@ -1945,6 +2024,7 @@ public class Student_Register extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     public javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -1956,7 +2036,6 @@ public class Student_Register extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

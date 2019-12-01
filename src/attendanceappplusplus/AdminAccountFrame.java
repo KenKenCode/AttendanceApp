@@ -209,6 +209,11 @@ Connection con = null;
                 jButton5MouseEntered(evt);
             }
         });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         AddNoteButton.setText("Add note");
         AddNoteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -606,6 +611,11 @@ Connection con = null;
 
         highlight(AreaForTakingNotes, jTextField2.getText());
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        new adminInformationFrame().setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     public void DataAdminAccountFrameNoteTaking() {
         try {

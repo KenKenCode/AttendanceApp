@@ -44,9 +44,7 @@ Connection con = null;
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         readOnlyChooseASectionBox = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-
-        setResizable(false);
+        statusFindReadOnly = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(164, 219, 255));
 
@@ -74,7 +72,12 @@ Connection con = null;
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status", "Present", "Late", "Excused", "Absent" }));
+        statusFindReadOnly.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status", "Present", "Late", "Excused", "Absent" }));
+        statusFindReadOnly.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusFindReadOnlyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,10 +90,10 @@ Connection con = null;
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusFindReadOnly, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(readOnlyChooseASectionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -107,7 +110,7 @@ Connection con = null;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(statusFindReadOnly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -133,7 +136,9 @@ Connection con = null;
 
     private void readOnlyChooseASectionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readOnlyChooseASectionBoxActionPerformed
         // TODO add your handling code here:
+        
         try {
+            
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
             String querychangesection = "SELECT * FROM database_rec WHERE Section = " + "'" + readOnlyChooseASectionBox.getSelectedItem().toString() + "'";
             pst = con.prepareStatement(querychangesection);
@@ -146,7 +151,26 @@ Connection con = null;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        if (readOnlyChooseASectionBox.getSelectedItem().equals("Select a Section")) {
+                Data();
+            }
     }//GEN-LAST:event_readOnlyChooseASectionBoxActionPerformed
+
+    private void statusFindReadOnlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusFindReadOnlyActionPerformed
+        // TODO add your handling code here:
+        try {
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String findstatusread = "SELECT * FROM database_rec WHERE Status = " + "'" + statusFindReadOnly.getSelectedItem().toString() + "'" + "AND" + " Section = " + "'" + readOnlyChooseASectionBox.getSelectedItem().toString() + "'";
+            pst = con.prepareStatement(findstatusread);
+            rs = pst.executeQuery(findstatusread);
+            
+            viewingOnlyOfRecordsTable.setModel(DbUtils.resultSetToTableModel(rs));
+            JOptionPane.showMessageDialog(null, "Found!");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_statusFindReadOnlyActionPerformed
 public void Data() {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
@@ -214,12 +238,12 @@ public void ChoosingASection() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> readOnlyChooseASectionBox;
+    private javax.swing.JComboBox<String> statusFindReadOnly;
     private javax.swing.JTable viewingOnlyOfRecordsTable;
     // End of variables declaration//GEN-END:variables
 }

@@ -131,6 +131,7 @@ public class AdminLogIn extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Only view records");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
@@ -240,8 +241,9 @@ public class AdminLogIn extends javax.swing.JFrame {
         if (usernameadminlogintext.getText().equals("") && passwordadminloginpass.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "One or more text fields are empty");
         } else {
-
+             
             try {
+                
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
                 String sql = "SELECT * FROM adminaccountregistration WHERE UserName = ? AND pass_word = ?";
                 pst = con.prepareStatement(sql);
@@ -257,13 +259,16 @@ public class AdminLogIn extends javax.swing.JFrame {
                     new AdminAccountFrame().setVisible(true);
                     setVisible(false);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Login Failed!");
+                    JOptionPane.showMessageDialog(null, "Login Failed!\nWrong password or username, please try again");
                 }
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
+              
+             
         }
+        
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -331,7 +336,7 @@ public class AdminLogIn extends javax.swing.JFrame {
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
         // TODO add your handling code here:
         if(SwingUtilities.isLeftMouseButton(evt)) {
-            
+            new readOnlyUser().setVisible(true);
         }
     }//GEN-LAST:event_jLabel1MousePressed
 
