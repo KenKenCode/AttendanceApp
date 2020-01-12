@@ -27,6 +27,7 @@ Connection con = null;
         initComponents(); //initComponents() must be in the first to avoid NullPointerException
         Data();
         ChoosingASection();
+        selectingFromCalendar();
     }
 
     /**
@@ -45,6 +46,10 @@ Connection con = null;
         jLabel2 = new javax.swing.JLabel();
         readOnlyChooseASectionBox = new javax.swing.JComboBox<>();
         statusFindReadOnly = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        readOnlyChooseCalendarBox = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(164, 219, 255));
 
@@ -79,6 +84,24 @@ Connection con = null;
             }
         });
 
+        jLabel3.setText("Find:");
+
+        jLabel4.setText("Calendar");
+
+        readOnlyChooseCalendarBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select from calendar" }));
+        readOnlyChooseCalendarBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readOnlyChooseCalendarBoxActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("All data");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -86,32 +109,45 @@ Connection con = null;
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(statusFindReadOnly, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(readOnlyChooseASectionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(readOnlyChooseCalendarBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(statusFindReadOnly, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(readOnlyChooseASectionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(readOnlyChooseASectionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(statusFindReadOnly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(readOnlyChooseCalendarBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(readOnlyChooseASectionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(statusFindReadOnly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,6 +207,40 @@ Connection con = null;
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_statusFindReadOnlyActionPerformed
+
+    private void readOnlyChooseCalendarBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readOnlyChooseCalendarBoxActionPerformed
+        // TODO add your handling code here:
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String findFromCalendar = "SELECT * FROM database_rec WHERE Calendar = " + "'" + readOnlyChooseCalendarBox.getSelectedItem().toString() + "'" + "AND" + " Section = " + "'" + readOnlyChooseASectionBox.getSelectedItem().toString() + "'";
+            
+            pst = con.prepareStatement(findFromCalendar);
+            rs = pst.executeQuery(findFromCalendar);
+            viewingOnlyOfRecordsTable.setModel(DbUtils.resultSetToTableModel(rs));
+            JOptionPane.showMessageDialog(null, "Found!");
+            if (readOnlyChooseCalendarBox.getSelectedItem().equals("Select from calendar")) {
+                Data();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_readOnlyChooseCalendarBoxActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            Data();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            int tryAgain = JOptionPane.showConfirmDialog(null, "Do you want to try retrieving the data again?");
+            switch (tryAgain) {
+                case JOptionPane.YES_OPTION: Data();
+                return;
+                        
+            }
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 public void Data() {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
@@ -197,6 +267,20 @@ public void ChoosingASection() {
                 String section = rs.getString("Section");
                 readOnlyChooseASectionBox.addItem(section);
 
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+public void selectingFromCalendar()  {
+        try {
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+        String findCalendarSelect = "SELECT Calendar FROM database_rec";
+        pst = con.prepareStatement(findCalendarSelect);
+        rs = pst.executeQuery(findCalendarSelect);
+        while (rs.next()) {
+                String time = rs.getString("Calendar");
+                readOnlyChooseCalendarBox.addItem(time);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -238,11 +322,15 @@ public void ChoosingASection() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> readOnlyChooseASectionBox;
+    private javax.swing.JComboBox<String> readOnlyChooseCalendarBox;
     private javax.swing.JComboBox<String> statusFindReadOnly;
     private javax.swing.JTable viewingOnlyOfRecordsTable;
     // End of variables declaration//GEN-END:variables

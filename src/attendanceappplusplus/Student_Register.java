@@ -29,6 +29,7 @@ import org.jfree.data.category.CategoryDataset;
 import java.net.InetAddress;
 import javax.swing.*;
 import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
+import java.awt.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -46,12 +47,14 @@ public class Student_Register extends javax.swing.JFrame {
 
     public Student_Register() {
         initComponents(); //initComponents() must be in the first to avoid NullPointerException
+        try{
         Data();
         MarkedSectionsTable();
-        ChoosingASection();
         DataAdminAccountFrameNoteTaking();
         CurrentDate();
-        selectingFromCalendar();
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e + "\nDatabase connection is might not be working properly");
+        }
 
         this.setLocationRelativeTo(null);
     }
@@ -108,7 +111,7 @@ public class Student_Register extends javax.swing.JFrame {
             Document documentlight = textComponent.getDocument();
             String textlight = documentlight.getText(0, documentlight.getLength());
             int pos = 0;
-
+            
             while ((pos = textlight.toUpperCase().indexOf(patternlight.toUpperCase(), pos)) >= 0) {
                 lighttheword.addHighlight(pos, pos + patternlight.length(), highlightpaintfind);
 
@@ -141,8 +144,6 @@ public class Student_Register extends javax.swing.JFrame {
         USN_txt = new javax.swing.JTextField();
         lname = new javax.swing.JTextField();
         lastNameLabel = new javax.swing.JLabel();
-        ChooseASectionBox = new javax.swing.JComboBox<>();
-        sectionsLabel = new javax.swing.JLabel();
         statusLabel = new javax.swing.JLabel();
         StatusBox = new javax.swing.JComboBox<>();
         thirdSearchButton = new javax.swing.JButton();
@@ -166,19 +167,24 @@ public class Student_Register extends javax.swing.JFrame {
         deleteNotesInNoteStudentRegister = new javax.swing.JButton();
         sectionLabel = new javax.swing.JLabel();
         SectionField = new javax.swing.JTextField();
-        jButton9 = new javax.swing.JButton();
+        markRecordButton = new javax.swing.JButton();
         updateARecordInmarkedRecordsTableLists = new javax.swing.JButton();
         deleteARecordInmarkedRecordsTableLists = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        insertButton = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        clearButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        statusFinderComboBox = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        chooseFromCalendarBox = new javax.swing.JComboBox<>();
+        findCalendarLabel = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        addOrEditLabel = new javax.swing.JLabel();
+        moveToRecycleBinButton = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        findLabel = new javax.swing.JLabel();
+        searchSectionsButton = new javax.swing.JButton();
+        findCalendarButton = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         readOnlyCheckBox = new javax.swing.JCheckBoxMenuItem();
@@ -193,6 +199,7 @@ public class Student_Register extends javax.swing.JFrame {
         nightViewMenuItem = new javax.swing.JMenuItem();
         defaultViewMenuItem = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -202,6 +209,8 @@ public class Student_Register extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         MenuCurrentDate = new javax.swing.JMenu();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
 
         jMenuItem10.setText("jMenuItem10");
         jPopupMenu1.add(jMenuItem10);
@@ -345,26 +354,6 @@ public class Student_Register extends javax.swing.JFrame {
         lastNameLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lastNameLabel.setForeground(new java.awt.Color(255, 255, 255));
         lastNameLabel.setText("Last Name");
-
-        ChooseASectionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a section" }));
-        ChooseASectionBox.setToolTipText("Select a section");
-        ChooseASectionBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                ChooseASectionBoxPopupMenuWillBecomeInvisible(evt);
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-        });
-        ChooseASectionBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChooseASectionBoxActionPerformed(evt);
-            }
-        });
-
-        sectionsLabel.setForeground(new java.awt.Color(255, 255, 255));
-        sectionsLabel.setText("Sections");
 
         statusLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         statusLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -553,15 +542,15 @@ public class Student_Register extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setText("Mark Record");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        markRecordButton.setText("Mark Record");
+        markRecordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                markRecordButtonActionPerformed(evt);
             }
         });
 
         updateARecordInmarkedRecordsTableLists.setBackground(new java.awt.Color(0, 255, 153));
-        updateARecordInmarkedRecordsTableLists.setToolTipText("jButton2. This would automatically update to the main table"
+        updateARecordInmarkedRecordsTableLists.setToolTipText("updateButton. This would automatically update to the main table"
         );
         updateARecordInmarkedRecordsTableLists.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -578,40 +567,37 @@ public class Student_Register extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(102, 255, 51));
-        jButton1.setText("Insert");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        insertButton.setBackground(new java.awt.Color(102, 255, 51));
+        insertButton.setText("Insert");
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                insertButton(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 255, 153));
-        jButton2.setText("Update");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        updateButton.setBackground(new java.awt.Color(0, 255, 153));
+        updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                updateButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 153, 0));
-        jButton3.setText("Delete");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton.setBackground(new java.awt.Color(255, 153, 0));
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                deleteButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(0, 255, 255));
-        jButton4.setText("Clear");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        clearButton.setBackground(new java.awt.Color(0, 255, 255));
+        clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                clearButtonActionPerformed(evt);
             }
         });
-
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Find:");
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 51));
 
@@ -619,32 +605,62 @@ public class Student_Register extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 302, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Status");
+        findCalendarLabel.setForeground(new java.awt.Color(255, 255, 255));
+        findCalendarLabel.setText("Calendar");
 
-        statusFinderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status", "Present", "Late", "Excused", "Absent" }));
-        statusFinderComboBox.addActionListener(new java.awt.event.ActionListener() {
+        jButton5.setText("Add to note");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusFinderComboBoxActionPerformed(evt);
+                jButton5ActionPerformed(evt);
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Calendar");
+        addOrEditLabel.setForeground(new java.awt.Color(255, 255, 255));
+        addOrEditLabel.setText("Add or edit:");
 
-        chooseFromCalendarBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select from calendar" }));
-        chooseFromCalendarBox.addActionListener(new java.awt.event.ActionListener() {
+        moveToRecycleBinButton.setText("Move to recycle bin");
+        moveToRecycleBinButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chooseFromCalendarBoxActionPerformed(evt);
+                moveToRecycleBinButtonActionPerformed(evt);
             }
         });
+
+        jButton7.setText("Recycle Bin");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Extra Features");
+
+        findLabel.setForeground(new java.awt.Color(255, 255, 255));
+        findLabel.setText("Find:");
+
+        searchSectionsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/Search.png"))); // NOI18N
+        searchSectionsButton.setText("Search section");
+        searchSectionsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchSectionsButtonActionPerformed(evt);
+            }
+        });
+
+        findCalendarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/Search.png"))); // NOI18N
+        findCalendarButton.setText("jButton1");
+        findCalendarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findCalendarButtonActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setText("Year-Month-Date");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -653,101 +669,102 @@ public class Student_Register extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(findLabel)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lastNameLabel)
                             .addComponent(USNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(firstNameLabel))
+                            .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(USN_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(thirdSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(StatusBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(StatusBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(lname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                                    .addComponent(fname, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(lname)
+                                    .addComponent(USN_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(firstSearchButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
-                                    .addComponent(secondSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 93, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(thirdSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(secondSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(insertButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(moveToRecycleBinButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clearButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(markRecordButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(refreshButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(refreshButton))
                             .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4))
-                            .addComponent(jLabel1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(numberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(sectionLabel))
-                                .addGap(26, 26, 26)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(No_txt)
-                                    .addComponent(SectionField, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(sectionsLabel)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(41, 41, 41)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ChooseASectionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(statusFinderComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(chooseFromCalendarBox, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton8))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(markedRecordsLabel)
+                                .addComponent(sectionLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(SectionField, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(firstNameLabel)
+                                .addGap(25, 25, 25)
+                                .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(numberLabel)
+                                    .addComponent(findCalendarLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(4, 4, 4)
-                                        .addComponent(findwordLabel))
-                                    .addComponent(noteTitleLabel)))
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(No_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(firstSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchSectionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(findCalendarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addOrEditLabel))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(markedRecordsLabel)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(updateARecordInmarkedRecordsTableLists)
-                                    .addComponent(deleteARecordInmarkedRecordsTableLists))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(deleteARecordInmarkedRecordsTableLists)
+                                    .addComponent(jButton5))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(findwordLabel)
+                            .addComponent(noteTitleLabel))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(updateNotesInNoteStudentRegister)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deleteNotesInNoteStudentRegister))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(FindWordStudent_RegisterText, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(findWordsInNoteStudentRegister)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(addContentsInNoteStudentRegister))
-                                .addComponent(Student_RegisterTitleNoteText, javax.swing.GroupLayout.Alignment.LEADING))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Student_RegisterTitleNoteText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -757,9 +774,9 @@ public class Student_Register extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(112, 112, 112)
@@ -776,13 +793,12 @@ public class Student_Register extends javax.swing.JFrame {
                                             .addComponent(FindWordStudent_RegisterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(findWordsInNoteStudentRegister))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(updateNotesInNoteStudentRegister)
-                                            .addComponent(deleteNotesInNoteStudentRegister)))))
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(updateNotesInNoteStudentRegister)
+                                    .addComponent(deleteNotesInNoteStudentRegister)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
                                 .addComponent(markedRecordsLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -790,41 +806,43 @@ public class Student_Register extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(updateARecordInmarkedRecordsTableLists)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(deleteARecordInmarkedRecordsTableLists))))))
+                                        .addComponent(deleteARecordInmarkedRecordsTableLists)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton5))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGap(5, 5, 5)
+                        .addComponent(findLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(sectionsLabel)
-                            .addComponent(ChooseASectionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(findCalendarLabel)
+                            .addComponent(findCalendarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(statusFinderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(chooseFromCalendarBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addOrEditLabel)
+                        .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(numberLabel)
                             .addComponent(No_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sectionLabel)
-                            .addComponent(SectionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(firstNameLabel)
-                            .addComponent(firstSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(SectionField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(searchSectionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(firstNameLabel)
+                                    .addComponent(firstSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lastNameLabel)
-                            .addComponent(secondSearchButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(secondSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(USN_txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -835,16 +853,21 @@ public class Student_Register extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(StatusBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(statusLabel))
-                        .addGap(14, 14, 14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(insertButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(moveToRecycleBinButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(markRecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -884,6 +907,11 @@ public class Student_Register extends javax.swing.JFrame {
         jMenu1.setText("Language");
 
         jMenuItem9.setText("Filipino/Tagalog");
+        jMenuItem9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem9MouseClicked(evt);
+            }
+        });
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
@@ -935,6 +963,14 @@ public class Student_Register extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem12);
+
+        jMenuItem17.setText("Change font color");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem17);
 
         jMenuItem13.setText("Accessibility mode");
         jMenuItem13.setToolTipText("Helps you access Attendance++ with more ease but with reduced functions");
@@ -996,6 +1032,18 @@ public class Student_Register extends javax.swing.JFrame {
                 MenuCurrentDateActionPerformed(evt);
             }
         });
+
+        jMenuItem15.setText("Add to note");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        MenuCurrentDate.add(jMenuItem15);
+
+        jMenuItem16.setText("Calendar interface");
+        MenuCurrentDate.add(jMenuItem16);
+
         jMenuBar1.add(MenuCurrentDate);
 
         setJMenuBar(jMenuBar1);
@@ -1011,10 +1059,10 @@ public class Student_Register extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1044,12 +1092,14 @@ public class Student_Register extends javax.swing.JFrame {
         char clettersonlyfirstname = evt.getKeyChar();
         if (Character.isLetter(clettersonlyfirstname) || Character.isWhitespace(clettersonlyfirstname) || Character.isISOControl(clettersonlyfirstname)) {
             fname.setEditable(true);
-            jButton1.setBackground(Color.YELLOW);
+            insertButton.setBackground(Color.YELLOW);
 
         } else {
+            
             fname.setEditable(false);
+            JOptionPane.showMessageDialog(null, "Invalid input. Try typing the right input that connects the most with the label of the text field");
         }
-
+        
     }//GEN-LAST:event_fnameKeyTyped
 
     private void fnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnameActionPerformed
@@ -1105,28 +1155,6 @@ public class Student_Register extends javax.swing.JFrame {
             lname.setEditable(false);
         }
     }//GEN-LAST:event_lnameKeyTyped
-
-    private void ChooseASectionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseASectionBoxActionPerformed
-        //Change the table data using JComboBox //Also change sections
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-            String querychangesection = "SELECT * FROM database_rec WHERE Section = " + "'" + ChooseASectionBox.getSelectedItem().toString() + "'";
-            pst = con.prepareStatement(querychangesection);
-            rs = pst.executeQuery(querychangesection);
-
-            myTB.setModel(DbUtils.resultSetToTableModel(rs));
-            JOptionPane.showMessageDialog(null, "Changed section(s)!");
-            //Adding ChooseASection() method results to combobox duplicating it's diplayed data in it's selecteditem
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        /* November 29, 2019, The following codes don't work as it is expected to be. Notes: *No syntax errors. 
-        if (ChooseASectionBox.getSelectedItem().equals("Select a Section")) {
-                Data();
-            }
-        */
-    }//GEN-LAST:event_ChooseASectionBoxActionPerformed
 
     private void StatusBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_StatusBoxItemStateChanged
         // TODO add your handling code here:
@@ -1270,6 +1298,7 @@ public class Student_Register extends javax.swing.JFrame {
         
         ClearTextFields(); //For refreshing the data in the table(s)
         MarkedSectionsTable();
+        CurrentDate();
         //There is a problem wherein when a new section is added, it does not show up in the ChooseASectionBox's lists
         
     }//GEN-LAST:event_refreshButtonActionPerformed
@@ -1280,6 +1309,7 @@ public class Student_Register extends javax.swing.JFrame {
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void MenuCurrentDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCurrentDateActionPerformed
@@ -1316,7 +1346,7 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             jPanel1.setBackground(Color.black);
-            sectionsLabel.setForeground(Color.white);
+            findLabel.setForeground(Color.white);
             numberLabel.setForeground(Color.white);
             firstNameLabel.setForeground(Color.white);
             lastNameLabel.setForeground(Color.white);
@@ -1335,7 +1365,7 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             jPanel1.setBackground(Color.white);
-            sectionsLabel.setForeground(Color.black);
+            findLabel.setForeground(Color.black);
             numberLabel.setForeground(Color.black);
             firstNameLabel.setForeground(Color.black);
             lastNameLabel.setForeground(Color.black);
@@ -1355,7 +1385,7 @@ public class Student_Register extends javax.swing.JFrame {
         Color defaultColorView = new Color(0, 102, 153);
         try {
             jPanel1.setBackground(defaultColorView);
-            sectionsLabel.setForeground(Color.white);
+            findLabel.setForeground(Color.white);
             numberLabel.setForeground(Color.white);
             firstNameLabel.setForeground(Color.white);
             lastNameLabel.setForeground(Color.white);
@@ -1400,18 +1430,25 @@ public class Student_Register extends javax.swing.JFrame {
                 lname.setText(model.getValueAt(i, 2).toString());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Last name field might be empty, please input the last name value for the last name\nError code: " + e);
+                
             }
 
             try {
-                USN_txt.setText(model.getValueAt(i, 5).toString()); //USN is now in the fifth column
+                USN_txt.setText(model.getValueAt(i, 6).toString()); //USN is now in the fifth column
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "USN field might be empty, please input the USN value for the USN\nError code: " + e);
             }
 
             try {
-                SectionField.setText(model.getValueAt(i, 6).toString()); //6 is the seventh column, always think that columns are equals to array implementation
+                SectionField.setText(model.getValueAt(i, 7).toString()); //6 is the seventh column, always think that columns are equals to array implementation
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Section field might be empty, please input the Section value for the Section \nError code: " + e);
+            }
+            
+            try {
+                StatusBox.setSelectedItem(model.getValueAt(i, 3).toString());
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Status field might be empty, please input the Section value for the Section \nError code: " + e);
             }
 
         }
@@ -1459,36 +1496,39 @@ public class Student_Register extends javax.swing.JFrame {
 
     }//GEN-LAST:event_markedRecordsTableListsMouseClicked
 
-    private void ChooseASectionBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ChooseASectionBoxPopupMenuWillBecomeInvisible
+    private void markRecordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markRecordButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ChooseASectionBoxPopupMenuWillBecomeInvisible
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        int moreInformation = JOptionPane.showConfirmDialog(null, "Add more information to the selected record?", "Notice", JOptionPane.YES_NO_OPTION);
+        
+        if (moreInformation == JOptionPane.YES_OPTION){
+            
+        }
+        
+        
+        int markSelectedRecord= myTB.getSelectedRow();
+        
+        TableModel markTableModel = myTB.getModel();
+        
         try {
-            String query = "INSERT INTO markedrecords"
-                    + "(FirstName, LastName, USN, Section, Status)"
-                    + "VALUES (?, ?, ?, ?, ?)";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-
+            String query = "INSERT INTO markedrecords" + "(FirstName, LastName, Status, Calendar, Time, USN, Section)" + "VALUES (?, ?, ?, ?, ?, ?, ?)";
             pst = con.prepareStatement(query);
-
-            pst.setString(1, fname.getText());
-            pst.setString(2, lname.getText());
-            pst.setString(3, USN_txt.getText());
-            pst.setString(4, SectionField.getText());
-            pst.setString(5, StatusBox.getSelectedItem().toString());
+            
+            pst.setString(1, markTableModel.getValueAt(markSelectedRecord, 1).toString());
+            pst.setString(2, markTableModel.getValueAt(markSelectedRecord, 2).toString());
+            pst.setString(3, markTableModel.getValueAt(markSelectedRecord, 3).toString());
+            pst.setString(4, markTableModel.getValueAt(markSelectedRecord, 4).toString());
+            pst.setString(5, markTableModel.getValueAt(markSelectedRecord, 5).toString());
+            pst.setString(6, markTableModel.getValueAt(markSelectedRecord, 6).toString());
+            pst.setString(7, markTableModel.getValueAt(markSelectedRecord, 7).toString());
             pst.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Marked!");
-            Data();
-            ClearTextFields();
             MarkedSectionsTable();
+            JOptionPane.showMessageDialog(null, "Marked!");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Duplicate entry \n Error:" + e);
+            JOptionPane.showMessageDialog(null, e);
         }
 
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_markRecordButtonActionPerformed
 
     private void myTBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myTBMouseReleased
         // TODO add your handling code here:
@@ -1501,6 +1541,7 @@ public class Student_Register extends javax.swing.JFrame {
 
             }
         }
+        
     }//GEN-LAST:event_myTBMouseReleased
 
     private void SectionFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SectionFieldActionPerformed
@@ -1562,7 +1603,7 @@ public class Student_Register extends javax.swing.JFrame {
             int selectamarkedrecord = markedRecordsTableLists.getSelectedRow();
             TableModel modelforselectingmarkedrecords = markedRecordsTableLists.getModel();
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-            String queryamarkedrecord = "UPDATE markedrecords SET FirstName = ?, LastName = ?, Status = ?, Time = ?, Section = ? ";
+            String queryamarkedrecord = "UPDATE markedrecords SET FirstName = ?, LastName = ?, Status = ?, Calendar = ?, Time = ?,USN = ?, Section = ? ";
             pst = con.prepareStatement(queryamarkedrecord);
 
             pst.setString(1, modelforselectingmarkedrecords.getValueAt(selectamarkedrecord, 0).toString());
@@ -1570,7 +1611,8 @@ public class Student_Register extends javax.swing.JFrame {
             pst.setString(3, modelforselectingmarkedrecords.getValueAt(selectamarkedrecord, 2).toString());
             pst.setString(4, modelforselectingmarkedrecords.getValueAt(selectamarkedrecord, 3).toString());
             pst.setString(5, modelforselectingmarkedrecords.getValueAt(selectamarkedrecord, 4).toString());
-
+            pst.setString(6, modelforselectingmarkedrecords.getValueAt(selectamarkedrecord, 5).toString());
+            pst.setString(7, modelforselectingmarkedrecords.getValueAt(selectamarkedrecord, 6).toString());
             pst.executeUpdate();
             MarkedSectionsTable();
             JOptionPane.showMessageDialog(null, "Updated!");
@@ -1589,16 +1631,16 @@ public class Student_Register extends javax.swing.JFrame {
         
         if (confirmationtodeletemarkedrecord == JOptionPane.YES_OPTION) {
             try {
-
+                
                 String querydeletemarkedrecord = "DELETE FROM `markedrecords` WHERE USN = ?";
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
                 pst = con.prepareStatement(querydeletemarkedrecord);
-                pst.setString(1, markedRecordsTableLists.getValueAt(selectamarkedrecorddeleteversion, 4).toString());
-
+                pst.setString(1, markedRecordsTableLists.getValueAt(selectamarkedrecorddeleteversion, 5).toString());
+                
                 pst.executeUpdate();
                 MarkedSectionsTable();
                 JOptionPane.showMessageDialog(null, "Deleted!");
-                ClearTextFields();
+                
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -1677,7 +1719,7 @@ public class Student_Register extends javax.swing.JFrame {
             Student_RegisterTitleNoteText.setText("");
             NotesForThisSection.setText("");
             
-        } catch (Exception e) {
+        } catch (Exception e) { 
             JOptionPane.showMessageDialog(null, "Some error occurred\nThis the error code: " + e);
         }
         
@@ -1688,7 +1730,8 @@ public class Student_Register extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteNotesInNoteStudentRegisterActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        
+
+    new ColorChooser().setVisible(true);
         
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
@@ -1711,24 +1754,7 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem8ItemStateChanged
 
-    private void statusFinderComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusFinderComboBoxActionPerformed
-        // TODO add your handling code here:
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-            String findstatus = "SELECT * FROM database_rec WHERE Status = " + "'" + statusFinderComboBox.getSelectedItem().toString() + "'" + "AND" + " Section = " + "'" + ChooseASectionBox.getSelectedItem().toString() + "'";
-            pst = con.prepareStatement(findstatus);
-            
-            rs = pst.executeQuery(findstatus);
-            
-            myTB.setModel(DbUtils.resultSetToTableModel(rs));
-            JOptionPane.showMessageDialog(null, "Found!");
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }//GEN-LAST:event_statusFinderComboBoxActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         try {
             String query = "UPDATE `database_rec` SET Section = ?, FirstName = ?, LastName = ?, USN = ?, Status = ? WHERE No = ?";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
@@ -1751,19 +1777,36 @@ public class Student_Register extends javax.swing.JFrame {
 
         }
         Data();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void insertButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButton
         //Add a function where the Insert button can know what account is currently in use
         //Ask the user what table is currently in use
         //Add a combo box and list there the lists of table that are available
-
+        
+        if (SectionField.equals("") || fname.equals("") || lname.equals("") || USN_txt.equals("")) {
+            JOptionPane.showMessageDialog(null, "All text fields are required to have values");
+            Data();
+            sectionLabel.setForeground(new java.awt.Color(255, 102, 51));
+            firstNameLabel.setForeground(new java.awt.Color(255, 102, 51));
+            lastNameLabel.setForeground(new java.awt.Color(255, 102, 51));
+            USNLabel.setForeground(new java.awt.Color(255, 102, 51));
+            statusLabel.setForeground(new java.awt.Color(255, 102, 51));
+            return;
+        }
+        
+        if (StatusBox.getSelectedItem().equals("Status")) {
+            JOptionPane.showMessageDialog(null, "Please choose an item other than 'Status'");
+            return; //return to stop from reading the next try and catch codes below:
+        }
+        
         try {
+            
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
             String query = "INSERT INTO database_rec"
                     + "(FirstName, LastName, USN, Section, Status)"
                     + "VALUES (?, ?, ?, ?, ?)";
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-
+            
             pst = con.prepareStatement(query);
 
             pst.setString(1, fname.getText());
@@ -1774,32 +1817,32 @@ public class Student_Register extends javax.swing.JFrame {
             pst.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Inserted!");
+            
+            
             Data();
             
             ClearTextFields();
+            
+            
         } catch (SQLException | HeadlessException ex) {
             JOptionPane.showMessageDialog(null, "Duplicate entry \n Error:" + ex);
 
         }
 
-        //Try to use a method wherein the getText method is mosty used for getting the data of the table
-        try {
+        
+    }//GEN-LAST:event_insertButton
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        Data();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
         int i = myTB.getSelectedRow();
-
+        
+        
             TableModel model = myTB.getModel();
         int confirmationtodeleterecords = JOptionPane.showConfirmDialog(null, "Are you sure to delete this record(s)?", "Notice", JOptionPane.YES_NO_OPTION);
         if (confirmationtodeleterecords == JOptionPane.YES_OPTION) {
             try {
-                String query = "DELETE FROM `database_rec` WHERE No = ?";
+                
+                String query = "DELETE FROM database_rec WHERE No = ?";
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
                 pst = con.prepareStatement(query);
 
@@ -1820,31 +1863,133 @@ public class Student_Register extends javax.swing.JFrame {
             }
 
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
         ClearTextFields();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_clearButtonActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         String searchFunctionality = JOptionPane.showInputDialog(null, "Search");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void chooseFromCalendarBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFromCalendarBoxActionPerformed
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
         // TODO add your handling code here:
+        NotesForThisSection.append("Calendar: " + MenuCurrentDate.getText());
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        //append method to add the selected record to current note
+        int addSelectedRecord = markedRecordsTableLists.getSelectedRow();
+        TableModel whatTable = markedRecordsTableLists.getModel();
+
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-            String findFromCalendar = "SELECT * FROM database_rec WHERE Time = " + "'" + chooseFromCalendarBox.getSelectedItem() + "'";
-            pst = con.prepareStatement(findFromCalendar);
-            rs = pst.executeQuery(findFromCalendar);
-            myTB.setModel(DbUtils.resultSetToTableModel(rs));
-            JOptionPane.showMessageDialog(null, "Found!");
+            NotesForThisSection.append("First name: ");
+            NotesForThisSection.append(whatTable.getValueAt(addSelectedRecord, 0).toString());
+            NotesForThisSection.append(" Last name: ");
+            NotesForThisSection.append(whatTable.getValueAt(addSelectedRecord, 1).toString());
+            NotesForThisSection.append(" Status: ");
+            NotesForThisSection.append(whatTable.getValueAt(addSelectedRecord, 2).toString());
+            NotesForThisSection.append(" Calendar: ");
+            NotesForThisSection.append(whatTable.getValueAt(addSelectedRecord, 3).toString());
+            NotesForThisSection.append(" Time: ");
+            NotesForThisSection.append(whatTable.getValueAt(addSelectedRecord, 4).toString());
+            NotesForThisSection.append(" USN: ");
+            NotesForThisSection.append(whatTable.getValueAt(addSelectedRecord, 5).toString());
+            NotesForThisSection.append(" Section: ");
+            NotesForThisSection.append(whatTable.getValueAt(addSelectedRecord, 6).toString());
+            
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jMenuItem9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem9MouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jMenuItem9MouseClicked
+
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        // TODO add your handling code here:
+        new FontColorChooser().setVisible(true);
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void moveToRecycleBinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveToRecycleBinButtonActionPerformed
+        // TODO add your handling code here:
+        //TableModel and getSelectedRow() is much more efficient in getting the data
+        int irecyclebin = myTB.getSelectedRow();
+
+            TableModel modelrecyclebin = myTB.getModel();
+        //Move the record to recyclebin
+        try {
+             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+             String queryForMovingTorecyclebin = "INSERT INTO recyclebin"
+                    + "(No, FirstName, LastName, Status, Calendar, Time, USN, Section)"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+             pst = con.prepareStatement(queryForMovingTorecyclebin);
+             
+             pst.setString(1, modelrecyclebin.getValueAt(irecyclebin, 0).toString());
+             pst.setString(2, modelrecyclebin.getValueAt(irecyclebin, 1).toString());
+             pst.setString(3, modelrecyclebin.getValueAt(irecyclebin, 2).toString());
+             pst.setString(4, modelrecyclebin.getValueAt(irecyclebin, 3).toString());
+             pst.setString(5, modelrecyclebin.getValueAt(irecyclebin, 4).toString());
+             pst.setString(6, modelrecyclebin.getValueAt(irecyclebin, 5).toString());
+             pst.setString(7, modelrecyclebin.getValueAt(irecyclebin, 6).toString());
+             pst.setString(8, modelrecyclebin.getValueAt(irecyclebin, 7).toString());
+             
+             
+             JOptionPane.showMessageDialog(null, "Moved to recycle bin");
+             pst.executeUpdate();
+             
+             String queryForDeletingIndatabase_rec = "DELETE FROM database_Rec WHERE No = ?";
+             pst = con.prepareStatement(queryForDeletingIndatabase_rec);
+             pst.setString(1, modelrecyclebin.getValueAt(irecyclebin, 0).toString());
+             
+             pst.executeUpdate();
+             
+             Data(); //Execute Data() to refresh the table myTB
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-    }//GEN-LAST:event_chooseFromCalendarBoxActionPerformed
+    }//GEN-LAST:event_moveToRecycleBinButtonActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        new RecycleBin().setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void searchSectionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchSectionsButtonActionPerformed
+        // TODO add your handling code here:
+        //Change the table data using JComboBox //Also change sections
+
+        try {
+            
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String querychangesection = "SELECT * FROM database_rec WHERE Section = " + "'" + SectionField.getText().toString() + "'";
+            
+            pst = con.prepareStatement(querychangesection);
+            rs = pst.executeQuery(querychangesection);
+
+            myTB.setModel(DbUtils.resultSetToTableModel(rs));
+            JOptionPane.showMessageDialog(null, "Changed section(s)!");
+          
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_searchSectionsButtonActionPerformed
+
+    private void findCalendarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findCalendarButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_findCalendarButtonActionPerformed
 
     public void Data() {
         try {
@@ -1874,24 +2019,7 @@ public class Student_Register extends javax.swing.JFrame {
 
     }
 
-    public void ChoosingASection() {
-        //For selecting sections combobox
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-            String sqlchoosesection = "SELECT Section FROM database_rec ";
-
-            pst = con.prepareStatement(sqlchoosesection);
-            rs = pst.executeQuery();
-
-            while (rs.next()) {
-                String section = rs.getString("Section");
-                ChooseASectionBox.addItem(section);
-
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
+    
 
     public void MarkedSectionsTable() {
         try {
@@ -1945,21 +2073,39 @@ public class Student_Register extends javax.swing.JFrame {
         }
     }
     
-    public void selectingFromCalendar()  {
+    
+    
+    public void saveColorData () {
         try {
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-        String findCalendarSelect = "SELECT Time FROM database_rec";
-        pst = con.prepareStatement(findCalendarSelect);
-        rs = pst.executeQuery(findCalendarSelect);
-        while (rs.next()) {
-                String time = rs.getString("Time");
-                chooseFromCalendarBox.addItem(time);
+        String saveCurrentColor = "";
+        
+        pst = con.prepareStatement(saveCurrentColor);
+        rs = pst.executeQuery(saveCurrentColor);
+        
+        
+        
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    /* //Calendar for combobox is now commented out because some data calendar values are 
+    public void calendar () {
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String findCalendar = "SELECT Calendar FROM database_rec WHERE Section LIKE '" + sectionSelectionComboBox.getSelectedItem().toString() + "'";
+            pst = con.prepareStatement(findCalendar);
+            rs = pst.executeQuery(findCalendar);
+            while (rs.next()) {
+                String calendarSearch = rs.getString("Calendar");
+                calendarComboBox.addItem(calendarSearch);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
+    */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1994,37 +2140,37 @@ public class Student_Register extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ChooseASectionBox;
     private java.awt.Button Clear;
     private javax.swing.JTextField FindWordStudent_RegisterText;
     private javax.swing.JMenu MenuCurrentDate;
     private javax.swing.JTextField No_txt;
-    private javax.swing.JTextArea NotesForThisSection;
+    public static javax.swing.JTextArea NotesForThisSection;
     private javax.swing.JTextField SectionField;
     private javax.swing.JComboBox<String> StatusBox;
-    private javax.swing.JTextField Student_RegisterTitleNoteText;
-    private javax.swing.JLabel USNLabel;
+    public javax.swing.JTextField Student_RegisterTitleNoteText;
+    public static javax.swing.JLabel USNLabel;
     private javax.swing.JTextField USN_txt;
     private javax.swing.JButton addContentsInNoteStudentRegister;
-    private javax.swing.JComboBox<String> chooseFromCalendarBox;
+    public static javax.swing.JLabel addOrEditLabel;
+    private javax.swing.JButton clearButton;
     private javax.swing.JMenuItem dayViewMenuItem;
     private javax.swing.JMenuItem defaultViewMenuItem;
     private javax.swing.JButton deleteARecordInmarkedRecordsTableLists;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JButton deleteNotesInNoteStudentRegister;
+    private javax.swing.JButton findCalendarButton;
+    private javax.swing.JLabel findCalendarLabel;
+    private javax.swing.JLabel findLabel;
     private javax.swing.JButton findWordsInNoteStudentRegister;
-    private javax.swing.JLabel findwordLabel;
-    private javax.swing.JLabel firstNameLabel;
+    public static javax.swing.JLabel findwordLabel;
+    public static javax.swing.JLabel firstNameLabel;
     private javax.swing.JButton firstSearchButton;
     private javax.swing.JTextField fname;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton insertButton;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JMenu jMenu1;
     public javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -2036,6 +2182,9 @@ public class Student_Register extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -2044,7 +2193,7 @@ public class Student_Register extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
@@ -2052,24 +2201,27 @@ public class Student_Register extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JTextField jTextField1;
+    public static javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lname;
-    private javax.swing.JLabel markedRecordsLabel;
+    private javax.swing.JButton markRecordButton;
+    public static javax.swing.JLabel markedRecordsLabel;
     private javax.swing.JTable markedRecordsTableLists;
+    private javax.swing.JButton moveToRecycleBinButton;
     private javax.swing.JTable myTB;
     private javax.swing.JMenuItem nightViewMenuItem;
-    private javax.swing.JLabel noteTitleLabel;
-    private javax.swing.JLabel numberLabel;
+    public static javax.swing.JLabel noteTitleLabel;
+    public static javax.swing.JLabel numberLabel;
     private javax.swing.JCheckBoxMenuItem readOnlyCheckBox;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JButton searchSectionsButton;
     private javax.swing.JButton secondSearchButton;
-    private javax.swing.JLabel sectionLabel;
-    private javax.swing.JLabel sectionsLabel;
-    private javax.swing.JComboBox<String> statusFinderComboBox;
-    private javax.swing.JLabel statusLabel;
+    public static javax.swing.JLabel sectionLabel;
+    public static javax.swing.JLabel statusLabel;
     private javax.swing.JTable tableForNoteRecordsStudentRegister;
     private javax.swing.JButton thirdSearchButton;
     private javax.swing.JButton updateARecordInmarkedRecordsTableLists;
+    private javax.swing.JButton updateButton;
     private javax.swing.JButton updateNotesInNoteStudentRegister;
     // End of variables declaration//GEN-END:variables
 }
