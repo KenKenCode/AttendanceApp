@@ -66,10 +66,7 @@ public class FontColorChooser extends JFrame implements ActionListener {
         Color initialColor = Color.RED;
         Color color = JColorChooser.showDialog(this, "Select a color", initialColor);
         c.setBackground(color);
-        Student_Register.findLabel.setForeground(color);
-        Student_Register.findSectionsLabel.setForeground(color);
-        Student_Register.statusFindLabel.setForeground(color);
-        Student_Register.findCalendarLabel.setForeground(color);
+        
         Student_Register.addOrEditLabel.setForeground(color);
         Student_Register.numberLabel.setForeground(color);
         Student_Register.sectionLabel.setForeground(color);
@@ -104,6 +101,7 @@ public class FontColorChooser extends JFrame implements ActionListener {
     }
 
 }
+
 
 
 
