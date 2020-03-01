@@ -95,6 +95,11 @@ public class AdminConfigureFrame extends javax.swing.JFrame {
             }
         });
 
+        fname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fnameActionPerformed(evt);
+            }
+        });
         fname.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 fnameKeyTyped(evt);
@@ -234,28 +239,46 @@ public class AdminConfigureFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_repassActionPerformed
 
     private void adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActionPerformed
+        
         if (verify()) {
             try {
-                String sql = " INSERT INTO `adminaccountregistration` (FirstName, LastName, UserName, pass_word) VALUES (?, ?, ?, ?)";
+                String createNewTable = JOptionPane.showInputDialog(null, "Please input the name of your new table");
+                if (createNewTable.equals("")) {
+                    JOptionPane.showMessageDialog(null, "The table must have a name");
+                    return;
+                }
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+                String sql = " INSERT INTO `adminaccountregistration` (FirstName, LastName, UserName, pass_word, TableName) VALUES (?, ?, ?, ?, ?)";
                 pst = con.prepareStatement(sql);
                 pst.setString(1, fname.getText());
                 pst.setString(2, lname.getText());
                 pst.setString(3, uname.getText());
                 pst.setString(4, String.valueOf(pass.getPassword()));
+                pst.setString(5, createNewTable); //The name of the table that is connected with the account is updated on the creation of the table after the sign-up process
 
                 JOptionPane.showMessageDialog(null, "Registered successfully!");
-                AdminAccountFrame hm = new AdminAccountFrame();
-                hm.setVisible(true);
-                setVisible(false);
+
                 pst.executeUpdate();
 
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+                String sqlCreateTable = "CREATE TABLE " + createNewTable.toString() + "(No int(11), FirstName varchar(30), LastName varchar(30), Status varchar(30), Calendar date, Time time, USN bigint(20), Section varchar(50), PRIMARY KEY (No));";
+                pst = con.prepareStatement(sqlCreateTable);
+
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Table created succesfully");
+                
+                
+                
+                
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
 
         }
-
+        
+        
+        
+        
     }//GEN-LAST:event_adminActionPerformed
     public boolean verify() {
         if (fname.getText().equals("") && lname.getText().equals("") || uname.getText().equals("")) {
@@ -278,9 +301,7 @@ public class AdminConfigureFrame extends javax.swing.JFrame {
         } else {
             fname.setEditable(false);
         }
-        {
-
-        }
+        
     }//GEN-LAST:event_fnameKeyTyped
 
     private void lnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lnameKeyTyped
@@ -293,9 +314,7 @@ public class AdminConfigureFrame extends javax.swing.JFrame {
         } else {
             lname.setEditable(false);
         }
-        {
-
-        }
+        
     }//GEN-LAST:event_lnameKeyTyped
 
     private void repassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_repassKeyPressed
@@ -307,6 +326,10 @@ public class AdminConfigureFrame extends javax.swing.JFrame {
     private void MenuCurrentDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCurrentDateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MenuCurrentDateActionPerformed
+
+    private void fnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fnameActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

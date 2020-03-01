@@ -176,7 +176,7 @@ public class ListOfHelp extends javax.swing.JFrame {
         }
         
         if (HelpComboBox.getSelectedItem().toString().equals("commands of Attendance++")) {
-            HelpDescriptionTextArea.setText("Attendance++ has specific commands that would help you to navigate throughout the app");
+            HelpDescriptionTextArea.setText("Attendance++ has specific commands that would help you to navigate throughout the app.\n1. 'Insert' command to insert a new attendance record.\n2. 'Update' command to update an existing student record.\n3. 'Delete' command to delete the current selected record.\n4. ");
         }
         if (HelpComboBox.getSelectedItem().toString().equals("Select help options")) {
             HelpDescriptionTextArea.setText("Select a help option");

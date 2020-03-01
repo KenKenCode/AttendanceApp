@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package attendanceappplusplus;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -37,19 +36,18 @@ import org.jfree.data.category.CategoryDataset;
 import java.net.InetAddress;
 import javax.swing.*;
 import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
-
 /**
  *
  * @author Ken
  */
-public class FontColorChooser extends JFrame implements ActionListener {
-
+public class FontColorChooserSample extends JFrame implements ActionListener{
     JButton b;
     Container c;
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    FontColorChooser() {
+    
+    FontColorChooserSample() {
         c = getContentPane();
         c.setLayout(new FlowLayout());
         b = new JButton("Color");
@@ -58,58 +56,37 @@ public class FontColorChooser extends JFrame implements ActionListener {
 
     }
     
-
     public void actionPerformed(ActionEvent e) {
-        
         try {
-            
         Color initialColor = Color.RED;
         Color color = JColorChooser.showDialog(this, "Select a color", initialColor);
         c.setBackground(color);
         
-        Student_Register.addOrEditLabel.setForeground(color);
-        Student_Register.numberLabel.setForeground(color);
-        Student_Register.sectionLabel.setForeground(color);
-        Student_Register.firstNameLabel.setForeground(color);
-        Student_Register.lastNameLabel.setForeground(color);
-        Student_Register.USNLabel.setForeground(color);
-        Student_Register.statusLabel.setForeground(color);
-        Student_Register.markedRecordsLabel.setForeground(color);
-        Student_Register.noteTitleLabel.setForeground(color);
-        Student_Register.findwordLabel.setForeground(color);
-        AdminAccountFrame.adminAccountFrameTitleNote.setForeground(color);
-        } catch (Exception error){
-            JOptionPane.showMessageDialog(null, error);
-           
+        savecolorsql.jPanel1.setBackground(color);
+         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+         String sqlcopycolorname = "INSERT INTO colorsave" + "(ColorOfApp)" + "VALUES (?)";
+         pst = con.prepareStatement(sqlcopycolorname);
+         pst.setString(1, savecolorsql.jPanel1.getBackground().toString());
+         pst.executeUpdate();
+         JOptionPane.showMessageDialog(null, "color saved!");
+         
+        } catch (Exception er) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     
-    
-        
-        
-        
-        
-        
-
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         // TODO code application logic here
-        FontColorChooser fontColorChange = new FontColorChooser();
-        fontColorChange.setSize(400, 400);
-        fontColorChange.setVisible(true);
-        fontColorChange.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        ColorChooser ch = new ColorChooser();
         
+        ch.setVisible(true);
+        ch.setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
-
+    
 }
-
-
-
-
-
-
-
-
-
 
 
 

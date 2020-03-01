@@ -6,6 +6,7 @@ package attendanceappplusplus;
  * and open the template in the editor.
  */
 
+import static attendanceappplusplus.adminInformationFrame.adminUserName;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.sql.Connection;
@@ -62,7 +63,9 @@ Connection con = null;
         initComponents();
         CurrentDate(); //For current date
         DataAdminAccountFrameNoteTaking(); //For getting the records in the notetakingforadmin table in attendancedatabase database
-         this.setLocationRelativeTo(null);
+        changeAccountNameLabel(); 
+        changeAccountTableNameLabel();
+        this.setLocationRelativeTo(null);
     }
     
     public void CurrentDate() {
@@ -162,6 +165,8 @@ Connection con = null;
         jTextField2 = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        AdminUserNameLabel = new javax.swing.JLabel();
+        currentTableNameOfAccountLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -303,6 +308,12 @@ Connection con = null;
             }
         });
 
+        AdminUserNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        AdminUserNameLabel.setText("AdminUserName");
+
+        currentTableNameOfAccountLabel.setForeground(new java.awt.Color(255, 255, 255));
+        currentTableNameOfAccountLabel.setText("TableName");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -315,28 +326,30 @@ Connection con = null;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(adminAccountFrameFindWordLabel)
-                                    .addComponent(adminAccountFrameTitleNote))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jTextField2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(AddNoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(TextTitleForNote, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(adminAccountFrameFindWordLabel)
+                                .addComponent(adminAccountFrameTitleNote))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jTextField2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(AddNoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(TextTitleForNote, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jButton1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton2))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(currentTableNameOfAccountLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AdminUserNameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -346,7 +359,11 @@ Connection con = null;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
+                        .addGap(5, 5, 5)
+                        .addComponent(AdminUserNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(currentTableNameOfAccountLabel)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(adminAccountFrameTitleNote)
                             .addComponent(TextTitleForNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -359,16 +376,16 @@ Connection con = null;
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(adminAccountFrameFindWordLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(add_stud, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Language");
@@ -436,8 +453,19 @@ Connection con = null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void add_studActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_studActionPerformed
+        
+        /*try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String changeTableContentByAccount = "SELECT * FROM " + currentTableNameOfAccountLabel.getText().toString() + "";
+            pstadminaccountframe = con.prepareStatement(changeTableContentByAccount);
+            rs = pstadminaccountframe.executeQuery();
+            Student_Register.myTB.setModel(DbUtils.resultSetToTableModel(rs));
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }*/
         new Student_Register().setVisible(true);
-        setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_add_studActionPerformed
 
     private void AddNoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddNoteButtonActionPerformed
@@ -607,11 +635,26 @@ Connection con = null;
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new adminInformationFrame().setVisible(true);
-            }
-        });     
+        new adminInformationFrame().setVisible(true);
+         try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String changeAdminUserNameLabel = "SELECT UserName, FirstName, LastName FROM adminaccountregistration WHERE NumberSecured = 1";
+        pstadminaccountframe = con.prepareStatement(changeAdminUserNameLabel);
+        rs = pstadminaccountframe.executeQuery();
+        
+        
+        while(rs.next()){
+            String name = rs.getString("UserName");
+            adminUserName.setText(name);
+            String firstName = rs.getString("FirstName");
+            adminInformationFrame.firstNameLabel.setText(firstName);
+            String lastName = rs.getString("LastName");
+            adminInformationFrame.lastNameLabel.setText(lastName);
+        }
+        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
         
         
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -638,9 +681,39 @@ Connection con = null;
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+    
+    public void changeAccountNameLabel() {//For changing the account name label text in AdminAccountFrame
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String changeAdminUserNameLabel = "SELECT UserName FROM adminaccountregistration WHERE NumberSecured = 1";
+        pstadminaccountframe = con.prepareStatement(changeAdminUserNameLabel);
+        rs = pstadminaccountframe.executeQuery();
+        
+        while(rs.next()){
+            String name = rs.getString("UserName");
+            AdminUserNameLabel.setText(name);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
    
     
-    
+    public void changeAccountTableNameLabel() {//For changing the account table name label text in AdminAccountFrame
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String changeAdminUserNameLabel = "SELECT TableName FROM adminaccountregistration WHERE NumberSecured = 1";
+        pstadminaccountframe = con.prepareStatement(changeAdminUserNameLabel);
+        rs = pstadminaccountframe.executeQuery();
+        
+        while(rs.next()){
+            String tableName = rs.getString("TableName");
+            currentTableNameOfAccountLabel.setText(tableName);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     
     
     /**
@@ -681,12 +754,14 @@ Connection con = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddNoteButton;
+    public static javax.swing.JLabel AdminUserNameLabel;
     private javax.swing.JTextArea AreaForTakingNotes;
     private javax.swing.JMenu MenuCurrentDate;
     private javax.swing.JTextField TextTitleForNote;
     private javax.swing.JButton add_stud;
     public static javax.swing.JLabel adminAccountFrameFindWordLabel;
     public static javax.swing.JLabel adminAccountFrameTitleNote;
+    public static javax.swing.JLabel currentTableNameOfAccountLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;

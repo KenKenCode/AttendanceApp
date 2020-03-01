@@ -1,5 +1,6 @@
 package attendanceappplusplus;
 
+import static attendanceappplusplus.adminInformationFrame.adminUserName;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
@@ -48,14 +49,17 @@ public class Student_Register extends javax.swing.JFrame {
     public Student_Register() {
         initComponents(); //initComponents() must be in the first to avoid NullPointerException
         try{
-        Data();
+        changeTableNameLabel();
+        listOfActiveAccounts();
+        activeAccount();
         MarkedSectionsTable();
         DataAdminAccountFrameNoteTaking();
         CurrentDate();
+        Data();
+        retrieveDataComboBox();
         } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e + "\nDatabase connection is might not be working properly");
+            JOptionPane.showMessageDialog(null, e + "\nDatabase connection might not be working properly");
         }
-
         this.setLocationRelativeTo(null);
     }
 
@@ -174,39 +178,35 @@ public class Student_Register extends javax.swing.JFrame {
         updateButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
         findCalendarLabel = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         addOrEditLabel = new javax.swing.JLabel();
         moveToRecycleBinButton = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        findLabel = new javax.swing.JLabel();
         searchSectionsButton = new javax.swing.JButton();
-        findCalendarButton = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        accountsTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        activeAccountUserNameLabel = new javax.swing.JLabel();
+        tbleNameLabel = new javax.swing.JLabel();
+        nameOfTableLabel = new javax.swing.JLabel();
+        changeTableButton = new javax.swing.JButton();
+        comboRetrieveCalendarData = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         readOnlyCheckBox = new javax.swing.JCheckBoxMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         dayViewMenuItem = new javax.swing.JMenuItem();
         nightViewMenuItem = new javax.swing.JMenuItem();
         defaultViewMenuItem = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         MenuCurrentDate = new javax.swing.JMenu();
         jMenuItem15 = new javax.swing.JMenuItem();
@@ -392,8 +392,8 @@ public class Student_Register extends javax.swing.JFrame {
             }
         });
 
-        thirdSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/Search.png"))); // NOI18N
-        thirdSearchButton.setText("Search");
+        thirdSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/iconfinder_magnifyingglass_1055031.png"))); // NOI18N
+        thirdSearchButton.setText("search");
         thirdSearchButton.setToolTipText("Search USN");
         thirdSearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,8 +401,8 @@ public class Student_Register extends javax.swing.JFrame {
             }
         });
 
-        secondSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/Search.png"))); // NOI18N
-        secondSearchButton.setText("Search");
+        secondSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/iconfinder_magnifyingglass_1055031.png"))); // NOI18N
+        secondSearchButton.setText("search");
         secondSearchButton.setToolTipText("Search last name");
         secondSearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -410,8 +410,8 @@ public class Student_Register extends javax.swing.JFrame {
             }
         });
 
-        firstSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/Search.png"))); // NOI18N
-        firstSearchButton.setText("Search");
+        firstSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/iconfinder_magnifyingglass_1055031.png"))); // NOI18N
+        firstSearchButton.setText("search");
         firstSearchButton.setToolTipText("Search first name");
         firstSearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -599,19 +599,6 @@ public class Student_Register extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(0, 204, 51));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 302, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
         findCalendarLabel.setForeground(new java.awt.Color(255, 255, 255));
         findCalendarLabel.setText("Calendar");
 
@@ -639,28 +626,55 @@ public class Student_Register extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setText("Extra Features");
-
-        findLabel.setForeground(new java.awt.Color(255, 255, 255));
-        findLabel.setText("Find:");
-
-        searchSectionsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/Search.png"))); // NOI18N
-        searchSectionsButton.setText("Search section");
+        searchSectionsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/iconfinder_magnifyingglass_1055031.png"))); // NOI18N
+        searchSectionsButton.setText("search");
         searchSectionsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchSectionsButtonActionPerformed(evt);
             }
         });
 
-        findCalendarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/attendanceappplusplus/Search.png"))); // NOI18N
-        findCalendarButton.setText("jButton1");
-        findCalendarButton.addActionListener(new java.awt.event.ActionListener() {
+        accountsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(accountsTable);
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Attendance++");
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Acrive account: ");
+
+        activeAccountUserNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        activeAccountUserNameLabel.setText("ActiveAccountName");
+
+        tbleNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        tbleNameLabel.setText("Table:");
+
+        nameOfTableLabel.setForeground(new java.awt.Color(255, 255, 255));
+        nameOfTableLabel.setText("TableName");
+
+        changeTableButton.setText("Chage table");
+        changeTableButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findCalendarButtonActionPerformed(evt);
+                changeTableButtonActionPerformed(evt);
             }
         });
 
-        jTextField1.setText("Year-Month-Date");
+        comboRetrieveCalendarData.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select from calendar" }));
+        comboRetrieveCalendarData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboRetrieveCalendarDataActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -669,7 +683,6 @@ public class Student_Register extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(findLabel)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lastNameLabel)
@@ -677,40 +690,20 @@ public class Student_Register extends javax.swing.JFrame {
                             .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(StatusBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(lname)
+                                    .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(USN_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(thirdSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(secondSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(insertButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(moveToRecycleBinButton))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(deleteButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(clearButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(markRecordButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(refreshButton))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(thirdSearchButton)
+                                    .addComponent(secondSearchButton)))
+                            .addComponent(StatusBox, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(sectionLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(51, 51, 51)
                                 .addComponent(SectionField, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(firstNameLabel)
@@ -718,22 +711,52 @@ public class Student_Register extends javax.swing.JFrame {
                                 .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(numberLabel)
-                                    .addComponent(findCalendarLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(numberLabel)
+                                        .addGap(70, 70, 70))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(No_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(addOrEditLabel)
+                                            .addComponent(findCalendarLabel))
+                                        .addGap(29, 29, 29)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(No_txt)
+                                    .addComponent(comboRetrieveCalendarData, 0, 162, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(firstSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(searchSectionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(findCalendarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addOrEditLabel))
-                .addGap(50, 50, 50)
+                            .addComponent(firstSearchButton)
+                            .addComponent(searchSectionsButton)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(insertButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(moveToRecycleBinButton))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(deleteButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clearButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(markRecordButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(refreshButton))
+                            .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(changeTableButton))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(activeAccountUserNameLabel))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tbleNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nameOfTableLabel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -763,8 +786,9 @@ public class Student_Register extends javax.swing.JFrame {
                                     .addComponent(findWordsInNoteStudentRegister)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(addContentsInNoteStudentRegister))
-                                .addComponent(Student_RegisterTitleNoteText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Student_RegisterTitleNoteText, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -773,9 +797,87 @@ public class Student_Register extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(findCalendarLabel)
+                            .addComponent(comboRetrieveCalendarData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addOrEditLabel)
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(numberLabel)
+                            .addComponent(No_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sectionLabel)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(SectionField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(searchSectionsButton))
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(firstNameLabel)
+                                    .addComponent(firstSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lastNameLabel)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(secondSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(USN_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(thirdSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(USNLabel))
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(StatusBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(statusLabel)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(insertButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(moveToRecycleBinButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(markRecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(changeTableButton))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(activeAccountUserNameLabel))
+                            .addGap(5, 5, 5)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tbleNameLabel)
+                            .addComponent(nameOfTableLabel)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(markedRecordsLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(updateARecordInmarkedRecordsTableLists)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(deleteARecordInmarkedRecordsTableLists)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton5))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -797,80 +899,10 @@ public class Student_Register extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(updateNotesInNoteStudentRegister)
-                                    .addComponent(deleteNotesInNoteStudentRegister)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(markedRecordsLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(updateARecordInmarkedRecordsTableLists)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(deleteARecordInmarkedRecordsTableLists)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton5))))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(findLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(findCalendarLabel)
-                            .addComponent(findCalendarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addOrEditLabel)
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(numberLabel)
-                            .addComponent(No_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sectionLabel)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(SectionField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(searchSectionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(11, 11, 11)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(firstNameLabel)
-                                    .addComponent(firstSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lastNameLabel)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(secondSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(USN_txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(USNLabel)
-                                .addComponent(thirdSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(StatusBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(statusLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(insertButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(moveToRecycleBinButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(markRecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(deleteNotesInNoteStudentRegister))))
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel1)))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         jMenu5.setText("File");
@@ -894,14 +926,6 @@ public class Student_Register extends javax.swing.JFrame {
         });
         jMenu5.add(readOnlyCheckBox);
 
-        jMenuItem8.setText("Send to...");
-        jMenuItem8.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jMenuItem8ItemStateChanged(evt);
-            }
-        });
-        jMenu5.add(jMenuItem8);
-
         jMenuBar1.add(jMenu5);
 
         jMenu1.setText("Language");
@@ -922,15 +946,6 @@ public class Student_Register extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("View");
-
-        jMenuItem4.setText("Word style");
-        jMenu3.add(jMenuItem4);
-
-        jMenuItem5.setText("Full-screen");
-        jMenu3.add(jMenuItem5);
-
-        jMenuItem6.setText("Sticky-window");
-        jMenu3.add(jMenuItem6);
 
         dayViewMenuItem.setText("Day view");
         dayViewMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -972,10 +987,6 @@ public class Student_Register extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem17);
 
-        jMenuItem13.setText("Accessibility mode");
-        jMenuItem13.setToolTipText("Helps you access Attendance++ with more ease but with reduced functions");
-        jMenu3.add(jMenuItem13);
-
         jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Tools");
@@ -988,28 +999,13 @@ public class Student_Register extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
-        jMenuItem2.setText("Screen capture this window");
+        jMenuItem2.setText("More SQL commands");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
-
-        jMenuItem3.setText("Search...");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem3);
-
-        jMenuItem7.setText("Charts, graphs (Pie charts, bar graphs, etc.)");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem7);
-
-        jMenuItem14.setText("Attendance++ automatic planning (beta)");
-        jMenuItem14.setToolTipText("Helps you plan for a quality of an attendance record/status");
-        jMenu2.add(jMenuItem14);
 
         jMenuBar1.add(jMenu2);
 
@@ -1123,7 +1119,7 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            String query = "UPDATE `database_rec` SET StudentName = ?, USN= ?, Status = ? WHERE No = ?";
+            String query = "UPDATE " + nameOfTableLabel.getText().toString() + " SET StudentName = ?, USN= ?, Status = ? WHERE No = ?";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
             pst = con.prepareStatement(query);
         } catch (SQLException | HeadlessException ex) {
@@ -1132,11 +1128,10 @@ public class Student_Register extends javax.swing.JFrame {
     }//GEN-LAST:event_No_txtActionPerformed
 
     private void No_txtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_No_txtMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_No_txtMouseClicked
 
     private void myTBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myTBMouseClicked
-
 
     }//GEN-LAST:event_myTBMouseClicked
 
@@ -1168,7 +1163,7 @@ public class Student_Register extends javax.swing.JFrame {
     private void StatusBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_StatusBoxKeyPressed
 
         try {
-            String query = "UPDATE `database_rec` SET `Status` = ?  WHERE `No` = ?";
+            String query = "UPDATE " + nameOfTableLabel.getText().toString() + " SET `Status` = ?  WHERE `No` = ?";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
             pst = con.prepareStatement(query);
 
@@ -1199,7 +1194,7 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            String no = "SELECT * FROM `database_rec` WHERE `FirstName` LIKE '%" + fname.getText() + "%' ";
+            String no = "SELECT * FROM " + nameOfTableLabel.getText().toString() + " WHERE `FirstName` LIKE '%" + fname.getText() + "%' ";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
             pst = con.prepareStatement(no);
 
@@ -1263,7 +1258,7 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            String no = "SELECT * FROM `database_rec` WHERE `LastName` LIKE '%" + lname.getText() + "%' ";
+            String no = "SELECT * FROM " + nameOfTableLabel.getText().toString() + " WHERE `LastName` LIKE '%" + lname.getText() + "%' ";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
             pst = con.prepareStatement(no);
 
@@ -1280,7 +1275,7 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            String no = "SELECT * FROM `database_rec` WHERE `USN` LIKE '%" + USN_txt.getText() + "%' ";
+            String no = "SELECT * FROM " + nameOfTableLabel.getText().toString() + " WHERE `USN` LIKE '%" + USN_txt.getText() + "%' ";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
             pst = con.prepareStatement(no);
 
@@ -1346,7 +1341,7 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             jPanel1.setBackground(Color.black);
-            findLabel.setForeground(Color.white);
+            
             numberLabel.setForeground(Color.white);
             firstNameLabel.setForeground(Color.white);
             lastNameLabel.setForeground(Color.white);
@@ -1365,7 +1360,7 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             jPanel1.setBackground(Color.white);
-            findLabel.setForeground(Color.black);
+            
             numberLabel.setForeground(Color.black);
             firstNameLabel.setForeground(Color.black);
             lastNameLabel.setForeground(Color.black);
@@ -1385,7 +1380,7 @@ public class Student_Register extends javax.swing.JFrame {
         Color defaultColorView = new Color(0, 102, 153);
         try {
             jPanel1.setBackground(defaultColorView);
-            findLabel.setForeground(Color.white);
+            
             numberLabel.setForeground(Color.white);
             firstNameLabel.setForeground(Color.white);
             lastNameLabel.setForeground(Color.white);
@@ -1555,28 +1550,6 @@ public class Student_Register extends javax.swing.JFrame {
     private void StatusBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_StatusBoxPopupMenuWillBecomeVisible
         // TODO add your handling code here:
     }//GEN-LAST:event_StatusBoxPopupMenuWillBecomeVisible
-
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-
-        try {
-            String querytocountstatus = "SELECT COUNT(*) FROM database_rec WHERE Status = 'Status'";
-            JDBCCategoryDataSet dataset = new JDBCCategoryDataSet(Student_Register.ConnectDB(), querytocountstatus);
-            JFreeChart chartone = ChartFactory.createLineChart("Query chart", "Status", "Status", (CategoryDataset) dataset, PlotOrientation.VERTICAL, false, true, true);
-            BarRenderer renderer = null;
-            CategoryPlot plot = null;
-            renderer = new BarRenderer();
-            ChartFrame frame = new ChartFrame("Query Chart", chartone);
-            frame.setVisible(true);
-            frame.setSize(400, 650);
-            
-            
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        
-        
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void StatusBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StatusBoxMouseClicked
         // TODO add your handling code here:
@@ -1750,13 +1723,9 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu5ItemStateChanged
 
-    private void jMenuItem8ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItem8ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem8ItemStateChanged
-
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         try {
-            String query = "UPDATE `database_rec` SET Section = ?, FirstName = ?, LastName = ?, USN = ?, Status = ? WHERE No = ?";
+            String query = "UPDATE " + nameOfTableLabel.getText().toString() + " SET Section = ?, FirstName = ?, LastName = ?, USN = ?, Status = ? WHERE No = ?";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
             pst = con.prepareStatement(query);
 
@@ -1803,8 +1772,7 @@ public class Student_Register extends javax.swing.JFrame {
         try {
             
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-            String query = "INSERT INTO database_rec"
-                    + "(FirstName, LastName, USN, Section, Status)"
+            String query = "INSERT INTO " + nameOfTableLabel.getText().toString() + "(FirstName, LastName, USN, Section, Status)"
                     + "VALUES (?, ?, ?, ?, ?)";
             
             pst = con.prepareStatement(query);
@@ -1842,7 +1810,7 @@ public class Student_Register extends javax.swing.JFrame {
         if (confirmationtodeleterecords == JOptionPane.YES_OPTION) {
             try {
                 
-                String query = "DELETE FROM database_rec WHERE No = ?";
+                String query = "DELETE FROM " + nameOfTableLabel.getText().toString() + " WHERE No = ?";
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
                 pst = con.prepareStatement(query);
 
@@ -1869,11 +1837,6 @@ public class Student_Register extends javax.swing.JFrame {
         // TODO add your handling code here:
         ClearTextFields();
     }//GEN-LAST:event_clearButtonActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        String searchFunctionality = JOptionPane.showInputDialog(null, "Search");
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
         // TODO add your handling code here:
@@ -1944,7 +1907,7 @@ public class Student_Register extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, "Moved to recycle bin");
              pst.executeUpdate();
              
-             String queryForDeletingIndatabase_rec = "DELETE FROM database_Rec WHERE No = ?";
+             String queryForDeletingIndatabase_rec = "DELETE FROM " + nameOfTableLabel.getText().toString() + " WHERE No = ?";
              pst = con.prepareStatement(queryForDeletingIndatabase_rec);
              pst.setString(1, modelrecyclebin.getValueAt(irecyclebin, 0).toString());
              
@@ -1962,46 +1925,88 @@ public class Student_Register extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void searchSectionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchSectionsButtonActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
         //Change the table data using JComboBox //Also change sections
 
         try {
             
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-            String querychangesection = "SELECT * FROM database_rec WHERE Section = " + "'" + SectionField.getText().toString() + "'";
+            String querychangesection = "SELECT * FROM " + nameOfTableLabel.getText().toString() + " WHERE Section = " + "'" + SectionField.getText().toString() + "'" + "AND Calendar = '" + comboRetrieveCalendarData.getSelectedItem().toString() + "'";
             
             pst = con.prepareStatement(querychangesection);
             rs = pst.executeQuery(querychangesection);
 
             myTB.setModel(DbUtils.resultSetToTableModel(rs));
             JOptionPane.showMessageDialog(null, "Changed section(s)!");
-          
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_searchSectionsButtonActionPerformed
 
-    private void findCalendarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findCalendarButtonActionPerformed
+    private void changeTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeTableButtonActionPerformed
         // TODO add your handling code here:
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String changeTableContentByAccount = "SELECT * FROM " + nameOfTableLabel.getText().toString() + "";
+            pst = con.prepareStatement(changeTableContentByAccount);
+            rs = pst.executeQuery();
+            Student_Register.myTB.setModel(DbUtils.resultSetToTableModel(rs));
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_changeTableButtonActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        new sqlcommands().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void comboRetrieveCalendarDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboRetrieveCalendarDataActionPerformed
+        // TODO add your handling code here:
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String sql = "SELECT * FROM " + nameOfTableLabel.getText().toString() + " WHERE Calendar = " + "'" + comboRetrieveCalendarData.getSelectedItem().toString() + "'";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery(sql);
+
+            myTB.setModel(DbUtils.resultSetToTableModel(rs));
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-    }//GEN-LAST:event_findCalendarButtonActionPerformed
-
+    }//GEN-LAST:event_comboRetrieveCalendarDataActionPerformed
+    //To pick a record based on the account
+    
+    
+    
     public void Data() {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-            String sql = "SELECT * FROM database_rec"; //Select a table
-            pst = con.prepareStatement(sql);
-            rs = pst.executeQuery(sql);
-            myTB.setModel(DbUtils.resultSetToTableModel(rs));
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            String changeTableContentByAccount = "SELECT * FROM " + nameOfTableLabel.getText().toString() + "";
+            pst = con.prepareStatement(changeTableContentByAccount);
+            rs = pst.executeQuery();
+            Student_Register.myTB.setModel(DbUtils.resultSetToTableModel(rs));
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, e);
         }
+    }
+    
+    public void listOfActiveAccounts() {
+        try{
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", ""); 
+        String sqlAccounts = "SELECT FirstName, LastName, UserName,TableName, NumberSecured FROM adminaccountregistration WHERE NumberSecured = 1";
+        pst = con.prepareStatement(sqlAccounts);
+        rs = pst.executeQuery(sqlAccounts);
+        accountsTable.setModel(DbUtils.resultSetToTableModel(rs));
+        
+        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
     }
 
     public void StatusUpdate() {
@@ -2083,10 +2088,57 @@ public class Student_Register extends javax.swing.JFrame {
         pst = con.prepareStatement(saveCurrentColor);
         rs = pst.executeQuery(saveCurrentColor);
         
-        
-        
         } catch (Exception e) {
             
+        }
+    }
+    
+    public void activeAccount() {
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String sql = "SELECT UserName FROM adminaccountregistration WHERE NumberSecured = 1";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                String name = rs.getString("UserName");
+                activeAccountUserNameLabel.setText(name);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void changeTableNameLabel() {
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String sql = "SELECT TableName FROM adminaccountregistration WHERE NumberSecured = 1";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                String nameOfTableLabelSQL = rs.getString("TableName");
+                nameOfTableLabel.setText(nameOfTableLabelSQL);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void retrieveDataComboBox() {
+        try {
+            String sql = "SELECT COUNT(*) AS `Rows`, `Calendar` FROM`" + nameOfTableLabel.getText().toString() + "` GROUP BY `Calendar` ORDER BY `Calendar` ";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                String date = rs.getString("Calendar");
+                comboRetrieveCalendarData.addItem(date);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     
@@ -2150,17 +2202,19 @@ public class Student_Register extends javax.swing.JFrame {
     public javax.swing.JTextField Student_RegisterTitleNoteText;
     public static javax.swing.JLabel USNLabel;
     private javax.swing.JTextField USN_txt;
+    private javax.swing.JTable accountsTable;
+    private javax.swing.JLabel activeAccountUserNameLabel;
     private javax.swing.JButton addContentsInNoteStudentRegister;
     public static javax.swing.JLabel addOrEditLabel;
+    private javax.swing.JButton changeTableButton;
     private javax.swing.JButton clearButton;
+    private javax.swing.JComboBox<String> comboRetrieveCalendarData;
     private javax.swing.JMenuItem dayViewMenuItem;
     private javax.swing.JMenuItem defaultViewMenuItem;
     private javax.swing.JButton deleteARecordInmarkedRecordsTableLists;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton deleteNotesInNoteStudentRegister;
-    private javax.swing.JButton findCalendarButton;
-    private javax.swing.JLabel findCalendarLabel;
-    private javax.swing.JLabel findLabel;
+    public static javax.swing.JLabel findCalendarLabel;
     private javax.swing.JButton findWordsInNoteStudentRegister;
     public static javax.swing.JLabel findwordLabel;
     public static javax.swing.JLabel firstNameLabel;
@@ -2170,7 +2224,8 @@ public class Student_Register extends javax.swing.JFrame {
     private javax.swing.JButton insertButton;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     public javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -2180,35 +2235,27 @@ public class Student_Register extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane5;
     public static javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lname;
     private javax.swing.JButton markRecordButton;
     public static javax.swing.JLabel markedRecordsLabel;
     private javax.swing.JTable markedRecordsTableLists;
     private javax.swing.JButton moveToRecycleBinButton;
-    private javax.swing.JTable myTB;
+    public static javax.swing.JTable myTB;
+    private javax.swing.JLabel nameOfTableLabel;
     private javax.swing.JMenuItem nightViewMenuItem;
     public static javax.swing.JLabel noteTitleLabel;
     public static javax.swing.JLabel numberLabel;
@@ -2219,6 +2266,7 @@ public class Student_Register extends javax.swing.JFrame {
     public static javax.swing.JLabel sectionLabel;
     public static javax.swing.JLabel statusLabel;
     private javax.swing.JTable tableForNoteRecordsStudentRegister;
+    private javax.swing.JLabel tbleNameLabel;
     private javax.swing.JButton thirdSearchButton;
     private javax.swing.JButton updateARecordInmarkedRecordsTableLists;
     private javax.swing.JButton updateButton;

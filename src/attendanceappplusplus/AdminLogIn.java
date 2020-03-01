@@ -5,6 +5,8 @@ package attendanceappplusplus;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import static attendanceappplusplus.AdminAccountFrame.currentTableNameOfAccountLabel;
+import static attendanceappplusplus.adminInformationFrame.adminUserName;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.sql.Connection;
@@ -39,9 +41,10 @@ public class AdminLogIn extends javax.swing.JFrame {
     public AdminLogIn() {
         initComponents();
         CurrentDate();
+        
         this.setLocationRelativeTo(null);
     }
-    
+
     public void CurrentDate() {
         //For displaying the date
         Calendar dateandtimeone = new GregorianCalendar();
@@ -49,8 +52,8 @@ public class AdminLogIn extends javax.swing.JFrame {
         int year = dateandtimeone.get(Calendar.YEAR);
         int day = dateandtimeone.get(Calendar.DAY_OF_MONTH);
 
-        MenuCurrentDate.setText((month + 1) + "/" + day+ "/" + year);
-        
+        MenuCurrentDate.setText((month + 1) + "/" + day + "/" + year);
+
         /*
         int second = dateandtimeone.get(Calendar.SECOND);
         int minute = dateandtimeone.get(Calendar.MINUTE);
@@ -78,6 +81,7 @@ public class AdminLogIn extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         label1 = new java.awt.Label();
         jLabel1 = new javax.swing.JLabel();
+        signUpButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -124,6 +128,11 @@ public class AdminLogIn extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
 
         label1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         label1.setForeground(new java.awt.Color(240, 248, 255));
@@ -141,36 +150,42 @@ public class AdminLogIn extends javax.swing.JFrame {
             }
         });
 
+        signUpButton.setText("Sign-up");
+        signUpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signUpButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(usernameadminlogintext, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordadminloginpass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(53, 53, 53))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addContainerGap())))
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(usernameadminlogintext, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(passwordadminloginpass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(signUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel1))))
+                        .addGap(5, 5, 5))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,9 +197,9 @@ public class AdminLogIn extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -194,7 +209,9 @@ public class AdminLogIn extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(passwordadminloginpass, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(33, 33, 33)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                            .addComponent(signUpButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(117, 117, 117))
         );
 
@@ -223,13 +240,11 @@ public class AdminLogIn extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, Short.MAX_VALUE)
         );
 
         pack();
@@ -240,20 +255,25 @@ public class AdminLogIn extends javax.swing.JFrame {
 
         if (usernameadminlogintext.getText().equals("") && passwordadminloginpass.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "One or more text fields are empty");
-        } else {
-             
+        } else { //else statement is needed to prevent the program from running the try-catch statement after the if statement is initialized
+
             try {
-                
+
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
                 String sql = "SELECT * FROM adminaccountregistration WHERE UserName = ? AND pass_word = ?";
                 pst = con.prepareStatement(sql);
-              
+
                 pst.setString(1, usernameadminlogintext.getText());
                 pst.setString(2, passwordadminloginpass.getText());
+                rsa = pst.executeQuery(); //User rsa = pst.executeQuery() because pst.executeUpdate() is probably only for sql statements that contain UDATE syntax only
                 
-                rsa = pst.executeQuery();
-               
+                String sqlUpdateNumberSecured = "UPDATE adminaccountregistration SET NumberSecured = 1" + " WHERE UserName = ?";
+                pst = con.prepareStatement(sqlUpdateNumberSecured);
+
+                pst.setString(1, usernameadminlogintext.getText().toString());
                 
+                pst.executeUpdate();
+
                 if (rsa.next()) {
                     JOptionPane.showMessageDialog(null, "Logged in successfully!");
                     new AdminAccountFrame().setVisible(true);
@@ -261,15 +281,17 @@ public class AdminLogIn extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Login Failed!\nWrong password or username, please try again");
                 }
+            
+    
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+                JOptionPane.showMessageDialog(null, e + "\n Possible issues:"
+                        + "\n1. You logged out without clicking the log-out button"
+                        + "\n2. An exception occurred");
             }
-              
-             
         }
         
-
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -283,8 +305,8 @@ public class AdminLogIn extends javax.swing.JFrame {
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
         // TODO add your handling code here:
-        
-        
+
+
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void MenuCurrentDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCurrentDateActionPerformed
@@ -293,36 +315,36 @@ public class AdminLogIn extends javax.swing.JFrame {
 
     private void passwordadminloginpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordadminloginpassKeyPressed
         // TODO add your handling code here:
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-             if (usernameadminlogintext.getText().equals("") && passwordadminloginpass.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "One or more text fields are empty");
-        } else {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (usernameadminlogintext.getText().equals("") && passwordadminloginpass.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "One or more text fields are empty");
+            } else {
 
-            try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
-                String sql = "SELECT * FROM adminaccountregistration WHERE UserName = ? AND pass_word = ?";
-                pst = con.prepareStatement(sql);
-              
-                pst.setString(1, usernameadminlogintext.getText());
-                pst.setString(2, passwordadminloginpass.getText());
-                
-                rsa = pst.executeQuery();
-               
-                
-                if (rsa.next()) {
-                    JOptionPane.showMessageDialog(null, "Logged in successfully!");
-                    new AdminAccountFrame().setVisible(true);
-                    setVisible(false);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Login Failed!");
+                try {
+                    con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+                    String sql = "SELECT * FROM adminaccountregistration WHERE UserName = ? AND pass_word = ?";
+                    pst = con.prepareStatement(sql);
+
+                    pst.setString(1, usernameadminlogintext.getText());
+                    pst.setString(2, passwordadminloginpass.getText());
+
+                    rsa = pst.executeQuery();
+
+                    if (rsa.next()) {
+                        JOptionPane.showMessageDialog(null, "Logged in successfully!");
+                        new AdminAccountFrame().setVisible(true);
+                        setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Login Failed!");
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
             }
         }
-         }
         
+
     }//GEN-LAST:event_passwordadminloginpassKeyPressed
 
     private void passwordadminloginpassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordadminloginpassKeyReleased
@@ -335,10 +357,35 @@ public class AdminLogIn extends javax.swing.JFrame {
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
         // TODO add your handling code here:
-        if(SwingUtilities.isLeftMouseButton(evt)) {
+        if (SwingUtilities.isLeftMouseButton(evt)) {
             new readOnlyUser().setVisible(true);
         }
     }//GEN-LAST:event_jLabel1MousePressed
+
+    private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
+        // TODO add your handling code here:
+        new AdminConfigureFrame().setVisible(true);
+    }//GEN-LAST:event_signUpButtonActionPerformed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    public void dynamicChangeLabel() {
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendancedatabase?useTimezone=true&serverTimezone=UTC", "root", "");
+            String changeAdminUserNameLabel = "SELECT UserName FROM adminaccountregistration WHERE NumberSecured = 1";
+        pst = con.prepareStatement(changeAdminUserNameLabel);
+        rsa = pst.executeQuery();
+        
+        while(rsa.next()){
+            String name = rsa.getString("UserName");
+            adminUserName.setText(name);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -388,6 +435,7 @@ public class AdminLogIn extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private java.awt.Label label1;
     private javax.swing.JPasswordField passwordadminloginpass;
+    private javax.swing.JButton signUpButton;
     private javax.swing.JTextField usernameadminlogintext;
     // End of variables declaration//GEN-END:variables
 }
